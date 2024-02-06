@@ -21,10 +21,16 @@ let config = {
             }
         }
     },
-    scene: [ Menu]
+    scene: [ PlayRight]
 }
 
 let game = new Phaser.Game(config);
 
-let width = config.width;
-let height = config.height;
+let width = game.config.width;
+let height = game.config.height;
+let keyLEFT, keyRIGHT, keyUP, keyDOWN
+let borderUISize = game.config.height / 15
+let borderPadding = borderUISize / 3
+
+let player = null;
+let isDamaged = false;
