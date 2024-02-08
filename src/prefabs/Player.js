@@ -8,15 +8,13 @@ class Player extends Phaser.GameObjects.Sprite{
     }
 
     update() {
-        if (Phaser.Input.Keyboard.JustDown(keyDOWN) && this.y != 450){
-            this.y += 100;
-            console.log(this.y)
+        if (Phaser.Input.Keyboard.JustDown(keyDOWN) && this.y != 380){ // bottom lane
+            this.y += 50;
         }
-        if (Phaser.Input.Keyboard.JustDown(keyUP) && this.y != 150){
-            this.y -= 100;
-            console.log(this.y)
+        if (Phaser.Input.Keyboard.JustDown(keyUP) && this.y != 230){ // top lane
+            this.y -= 50;
         }
-        if(keyLEFT.isDown){
+        if(keyLEFT.isDown && this.x > 16){
             this.x -= 5;
         } else if(keyRIGHT.isDown){
             this.x += 5;
