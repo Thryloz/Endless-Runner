@@ -1,6 +1,7 @@
 // Jim Lee
 // Shift
 // Endless runner with changing perspectives gimmick
+// solid 10 hours in now by day 2
 
 'use strict';
 
@@ -21,7 +22,7 @@ let config = {
             }
         }
     },
-    scene: [ PlayRight]
+    scene: [ PlayRight, PlayLeft]
 }
 
 let game = new Phaser.Game(config);
@@ -33,5 +34,6 @@ let borderUISize = game.config.height / 15
 let borderPadding = borderUISize / 3
 
 let player = null;
+let shiftPortal = null;
 let isDamaged = false;
 let isDestroyed = false;

@@ -1,17 +1,18 @@
-class PlayRight extends Phaser.Scene{
+class PlayLeft extends Phaser.Scene{
     constructor(){
-        super('playRightScene')
+        super('playLeftScene')
     }
 
     create(){
         // (x, y, size, color)
+        console.log("left scene")
         this.add.rectangle(0, 220, game.config.width, 3, 0xFFFFFF).setOrigin(0, 0)
         this.add.rectangle(0, 270, game.config.width, 3, 0xFFFFFF).setOrigin(0, 0)
         this.add.rectangle(0, 320, game.config.width, 3, 0xFFFFFF).setOrigin(0, 0)
         this.add.rectangle(0, 370, game.config.width, 3, 0xFFFFFF).setOrigin(0, 0)
         this.add.rectangle(0, 420, game.config.width, 3, 0xFFFFFF).setOrigin(0, 0)
 
-        this.player = new Player(this, 40, 280, 'player', 0).setOrigin(0.5, 0);
+        this.player = new Player(this, game.config.width - 40, 280, 'player', 0).setOrigin(0.5, 0);
 
         // player input (IT HAS TO BE AFTER PLAYER DECLARED FOR SOME REASON)
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
@@ -27,19 +28,17 @@ class PlayRight extends Phaser.Scene{
 
         this.addBarrier();
         
-        // summon shift barrier between 5000 and 10000
+        // summon shift portal between 5000 and 10000
         this.time.delayedCall(Phaser.Math.Between(5000, 10000), () => {
-            shiftPortal = this.physics.add.sprite(game.config.width, 345, 'shiftPortal').setOrigin(0.5).setScale(5);
-            shiftPortal.setVelocityX(-500);
+            shiftPortal = this.physics.add.sprite(0, 345, 'shiftPortal').setOrigin(0.5).setScale(5);
+            shiftPortal.setVelocityX(500);
             shiftPortal.setImmovable();
             //this.scene.start('playLeftScene')
         })
-
-
     }
 
     addBarrier() {
-        let barrier = new Barrier(this, game.config.width, -500, 'right');
+        let barrier = new Barrier(this, 0, 500, 'left');
         this.barrierGroup.add(barrier);
     }
 
@@ -65,14 +64,15 @@ class PlayRight extends Phaser.Scene{
                 })}, null, this);
         } 
         this.physics.world.collide(this.player, this.barrierGroup, () => {
-            this.player.isDestroyed = true;
-            //this.sound.play('sfx_player_destroyed');
-            // this.scene.start('endScene')
-            this.player.disableBody();
-        }, () => {return this.player.isDamaged}, this);
+                console.log('player destoryed')
+                this.player.isDestroyed = true;
+                //this.sound.play('sfx_player_destroyed');
+                // this.scene.start('gameoverScene')
+                this.player.disableBody();
+            }, () => {return this.player.isDamaged}, this);
 
         this.physics.world.collide(this.player, shiftPortal, () => {
-            this.scene.start('playLeftScene'),
+            this.scene.start('playRightScene'),
             console.log('shift');
         }, null, this);
 

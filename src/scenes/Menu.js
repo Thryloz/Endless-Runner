@@ -4,6 +4,7 @@ class Menu extends Phaser.Scene{
     }
     preload(){
         this.load.image('player', './assets/player.png')
+        this.load.image('barrier', './assets/barrier.png')
     }
 
     create(){
