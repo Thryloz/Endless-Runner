@@ -34,3 +34,4 @@ let borderPadding = borderUISize / 3
 
 let player = null;
 let isDamaged = false;
+let isDestroyed = false;

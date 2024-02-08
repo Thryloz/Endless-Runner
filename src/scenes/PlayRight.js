@@ -36,7 +36,35 @@ class PlayRight extends Phaser.Scene{
 
 
     update(){
-        this.player.update();
+        if (!this.player.isDestroyed){
+            this.player.update();
+        }
+        // obj1, obj2, collideCallback, proccessCallback (return bool), scope (scene)
+        // unfortunately have to handle player collision here instead of player prejab because disableBody() out of scope in player
+        if (!this.player.isDamaged) {
+            this.physics.world.collide(this.player, this.barrierGroup, () => {
+                this.player.isDamaged = true;
+                //this.sound.play('sfx_player_damaged');
+                this.cameras.main.shake(100, 0.0075); // shake camera
+                this.player.disableBody();
+                this.time.delayedCall(200, () => {this.player.enableBody()});
+                // set texture
+                this.time.delayedCall(2500, () => { // timer for player damage
+                    this.player.isDamaged = false;
+                    console.log("player undamaged")
+                    // set undamaged texture
+                })}, null, this);
+        } 
+        this.physics.world.collide(this.player, this.barrierGroup, () => {
+                console.log('player destoryed')
+                this.player.isDestroyed = true;
+                //this.sound.play('sfx_player_destroyed');
+                // this.scene.start('endScene')
+                this.player.disableBody();
+            }, () => {return this.player.isDamaged}, this);
 
-    }
+
+
+
+        }
 }

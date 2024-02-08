@@ -9,6 +9,7 @@ class Barrier extends Phaser.Physics.Arcade.Sprite {
         this.scene.physics.add.existing(this);
         this.setVelocityX(-500);
         this.setImmovable();
+        
         this.BarrierExists = true;
     }
 
