@@ -3,6 +3,10 @@ class PlayRight extends Phaser.Scene{
         super('playRightScene')
     }
 
+    init(level) {
+        this.level = level;
+    }
+
     create(){
         // (scene, x, y, size, color) ignore scene
         this.cameras.main.shake(100, 0.0075);
@@ -38,11 +42,16 @@ class PlayRight extends Phaser.Scene{
             shiftPortal.setImmovable();
         })
 
-
+        this.difficultyTimer = this.time.addEvent({
+            delay: 1000,
+            callback: this.difficultyUp,
+            callbackScope: this,
+            loop: true
+        })
     }
 
     addBarrier() {
-        let barrier = new BarrierHorizontal(this, game.config.width, -500, 'right');
+        let barrier = new BarrierHorizontal(this, game.config.width, -barrierSpeed, 'right');
         this.barrierGroup.add(barrier);
     }
 
@@ -60,7 +69,7 @@ class PlayRight extends Phaser.Scene{
                 //this.sound.play('sfx_player_damaged');
                 this.cameras.main.shake(100, 0.0075); // shake camera
                 this.player.disableBody();
-                this.time.delayedCall(200, () => {this.player.enableBody()});
+                this.time.delayedCall(300, () => {this.player.enableBody()});
                 // set texture
                 this.time.delayedCall(2500, () => { // timer for player damage
                     this.player.isDamaged = false;
@@ -78,6 +87,16 @@ class PlayRight extends Phaser.Scene{
         this.physics.world.collide(this.player, shiftPortal, () => {
             this.scene.start(possibleScenes[nextScene])
         }, null, this);
+
+    }
+
+    difficultyUp() {
+        this.level++;
+
+
+
+
+
 
     }
 }

@@ -1,7 +1,7 @@
 // Jim Lee
 // Shift
 // Endless runner with changing perspectives gimmick
-// solid 10 hours in now by day 2
+// 8 hours in by thursday  
 
 'use strict';
 
@@ -40,3 +40,6 @@ let isDestroyed = false;
 
 let possibleScenes = null;
 let nextScene = null;
+let level = 0;
+let barrierSpeed = 300;
+let barrierMaxSpeed = 1200;

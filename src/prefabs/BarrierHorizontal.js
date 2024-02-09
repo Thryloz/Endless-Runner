@@ -20,7 +20,7 @@ class BarrierHorizontal extends Phaser.Physics.Arcade.Sprite {
                 this.BarrierExists = false;
             }
 
-            if(this.x < -this.width) {
+            if(this.x < 0) {
                 this.destroy();
             }
         }
@@ -31,7 +31,7 @@ class BarrierHorizontal extends Phaser.Physics.Arcade.Sprite {
                 this.BarrierExists = false;
             }
 
-            if(this.x == this.width) {
+            if(this.x > game.config.width) {
                 this.destroy();
             }
         }

@@ -32,7 +32,8 @@ class BarrierVertical extends Phaser.Physics.Arcade.Sprite {
                 this.BarrierExists = false;
             }
 
-            if(this.y > height) {
+            if(this.y > game.config.height) {
+                //console.log('destroyed')
                 this.destroy();
             }
         }

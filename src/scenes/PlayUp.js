@@ -37,13 +37,11 @@ class PlayUp extends Phaser.Scene{
             shiftPortal.setVelocityY(-500);
             shiftPortal.setImmovable();
             //this.scene.start('playLeftScene')
-        })
-
-
+    })
     }
 
     addBarrier() {
-        let barrier = new BarrierVertical(this, game.config.height, -500, 'up');
+        let barrier = new BarrierVertical(this, game.config.height, -barrierSpeed, 'up');
         this.barrierGroup.add(barrier);
     }
 

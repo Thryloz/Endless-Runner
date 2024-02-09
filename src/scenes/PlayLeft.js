@@ -3,6 +3,10 @@ class PlayLeft extends Phaser.Scene{
         super('playLeftScene')
     }
 
+    init(level){
+        this.level = level;
+    }
+
     create(){
         // (scene, x, y, width, height, size, color) // 
         this.cameras.main.shake(100, 0.0075);
@@ -36,12 +40,11 @@ class PlayLeft extends Phaser.Scene{
             shiftPortal = this.physics.add.sprite(0, 345, 'shiftPortal').setOrigin(0.5).setScale(5);
             shiftPortal.setVelocityX(500);
             shiftPortal.setImmovable();
-            //this.scene.start('playLeftScene')
         })
     }
 
     addBarrier() {
-        let barrier = new BarrierHorizontal(this, 0, 500, 'left');
+        let barrier = new BarrierHorizontal(this, 0, barrierSpeed, 'left');
         this.barrierGroup.add(barrier);
     }
 

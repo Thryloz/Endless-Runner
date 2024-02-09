@@ -42,7 +42,7 @@ class PlayDown extends Phaser.Scene{
     }
 
     addBarrier() {
-        let barrier = new BarrierVertical(this, 0, 500, 'down');
+        let barrier = new BarrierVertical(this, 0, barrierSpeed, 'down');
         this.barrierGroup.add(barrier);
     }
 
