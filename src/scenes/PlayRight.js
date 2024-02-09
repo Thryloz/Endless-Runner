@@ -28,12 +28,14 @@ class PlayRight extends Phaser.Scene{
 
         this.addBarrier();
         
+        possibleScenes = ['playLeftScene', 'playDownScene', 'playUpScene']
+        nextScene = Math.floor(Math.random() * 3);
+
         // summon shift barrier between 5000 and 10000
         this.time.delayedCall(Phaser.Math.Between(5000, 10000), () => {
             shiftPortal = this.physics.add.sprite(game.config.width, 345, 'shiftPortal').setOrigin(0.5).setScale(5);
             shiftPortal.setVelocityX(-500);
             shiftPortal.setImmovable();
-            //this.scene.start('playLeftScene')
         })
 
 
@@ -49,6 +51,7 @@ class PlayRight extends Phaser.Scene{
         if (!this.player.isDestroyed){
             this.player.update();
         }
+
         // obj1, obj2, collideCallback, proccessCallback (return bool), scope (scene)
         // unfortunately have to handle player collision here instead of player prejab because disableBody() out of scope in player
         if (!this.player.isDamaged) {
@@ -73,7 +76,7 @@ class PlayRight extends Phaser.Scene{
         }, () => {return this.player.isDamaged}, this);
 
         this.physics.world.collide(this.player, shiftPortal, () => {
-            this.scene.start('playLeftScene')
+            this.scene.start(possibleScenes[nextScene])
         }, null, this);
 
     }

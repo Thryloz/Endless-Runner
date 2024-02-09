@@ -27,14 +27,16 @@ class PlayDown extends Phaser.Scene{
         });
 
         this.addBarrier();
+
+        possibleScenes = ['playLeftScene', 'playRightScene', 'playUpScene']
+        nextScene = Math.floor(Math.random() * 3);
         
         // summon shift barrier between 5000 and 10000
-        /* this.time.delayedCall(Phaser.Math.Between(5000, 10000), () => {
-            shiftPortal = this.physics.add.sprite(game.config.width, 345, 'shiftPortal').setOrigin(0.5).setScale(5);
-            shiftPortal.setVelocityX(-500);
+        this.time.delayedCall(Phaser.Math.Between(5000, 10000), () => {
+            shiftPortal = this.physics.add.sprite(445, 0, 'shiftPortal').setOrigin(0.5).setScale(5);
+            shiftPortal.setVelocityY(500);
             shiftPortal.setImmovable();
-            //this.scene.start('playLeftScene')
-        }) */
+        }) 
 
 
     }
@@ -73,7 +75,7 @@ class PlayDown extends Phaser.Scene{
         }, () => {return this.player.isDamaged}, this);
 
         this.physics.world.collide(this.player, shiftPortal, () => {
-            this.scene.start('playLeftScene')
+            this.scene.start(possibleScenes[nextScene])
         }, null, this);
 
     }

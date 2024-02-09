@@ -28,6 +28,9 @@ class PlayLeft extends Phaser.Scene{
 
         this.addBarrier();
         
+        possibleScenes = ['playRightScene', 'playDownScene', 'playUpScene']
+        nextScene = Math.floor(Math.random() * 3);
+
         // summon shift portal between 5000 and 10000
         this.time.delayedCall(Phaser.Math.Between(5000, 10000), () => {
             shiftPortal = this.physics.add.sprite(0, 345, 'shiftPortal').setOrigin(0.5).setScale(5);
@@ -72,8 +75,7 @@ class PlayLeft extends Phaser.Scene{
             }, () => {return this.player.isDamaged}, this);
 
         this.physics.world.collide(this.player, shiftPortal, () => {
-            this.scene.start('playRightScene'),
-            console.log('shift');
+            this.scene.start(possibleScenes[nextScene])
         }, null, this);
 
     }
