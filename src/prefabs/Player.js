@@ -1,5 +1,5 @@
 class Player extends Phaser.Physics.Arcade.Sprite{
-    constructor(scene, x, y, texture, frame){
+    constructor(scene, x, y, texture, frame, type){
         super(scene, x, y, texture, frame);
 
         scene.add.existing(this);
@@ -7,20 +7,37 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         isDamaged = false;
         isDestroyed = false;
         this.setCollideWorldBounds(true);
+        this.type = type;
         
     }
 
     update() {
-        if (Phaser.Input.Keyboard.JustDown(keyDOWN) && this.y != 380){ // bottom lane
-            this.y += 50;
+        if (this.type === 'horizontal'){
+            if (Phaser.Input.Keyboard.JustDown(keyDOWN) && this.y != 380){ // bottom lane
+                this.y += 50;
+            }
+            if (Phaser.Input.Keyboard.JustDown(keyUP) && this.y != 230){ // top lane
+                this.y -= 50;
+            }
+            if(keyLEFT.isDown){
+                this.x -= 5;
+            } else if(keyRIGHT.isDown){
+                this.x += 5;
+            }
         }
-        if (Phaser.Input.Keyboard.JustDown(keyUP) && this.y != 230){ // top lane
-            this.y -= 50;
-        }
-        if(keyLEFT.isDown && this.x > 5){
-            this.x -= 5;
-        } else if(keyRIGHT.isDown){
-            this.x += 5;
+
+        if (this.type === 'vertical'){  
+            if (Phaser.Input.Keyboard.JustDown(keyLEFT) && this.x != 405){ // left lane
+                this.x -= 50;
+            }
+            if (Phaser.Input.Keyboard.JustDown(keyRIGHT) && this.x != 555){ // right lane
+                this.x += 50;
+            }
+            if(keyUP.isDown){
+                this.y -= 5;
+            } else if(keyDOWN.isDown){
+                this.y += 5;
+            }
         }
     }
 

@@ -22,7 +22,7 @@ let config = {
             }
         }
     },
-    scene: [ PlayRight, PlayLeft]
+    scene: [ PlayDown, PlayRight, PlayLeft ]
 }
 
 let game = new Phaser.Game(config);

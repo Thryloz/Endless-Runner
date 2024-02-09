@@ -1,18 +1,18 @@
-class PlayLeft extends Phaser.Scene{
+class PlayDown extends Phaser.Scene{
     constructor(){
-        super('playLeftScene')
+        super('playDownScene')
     }
 
     create(){
-        // (scene, x, y, width, height, size, color) // 
+        // (scene, x, y, width, height, color) // ignore scene
         this.cameras.main.shake(100, 0.0075);
-        this.add.rectangle(0, 220, game.config.width, 3, 0xFFFFFF).setOrigin(0, 0)
-        this.add.rectangle(0, 270, game.config.width, 3, 0xFFFFFF).setOrigin(0, 0)
-        this.add.rectangle(0, 320, game.config.width, 3, 0xFFFFFF).setOrigin(0, 0)
-        this.add.rectangle(0, 370, game.config.width, 3, 0xFFFFFF).setOrigin(0, 0)
-        this.add.rectangle(0, 420, game.config.width, 3, 0xFFFFFF).setOrigin(0, 0)
+        this.add.rectangle(380, 0, 3, game.config.height, 0xFFFFFF).setOrigin(0, 0)
+        this.add.rectangle(430, 0, 3, game.config.height, 0xFFFFFF).setOrigin(0, 0)
+        this.add.rectangle(480, 0, 3, game.config.height, 0xFFFFFF).setOrigin(0, 0)
+        this.add.rectangle(530, 0, 3, game.config.height, 0xFFFFFF).setOrigin(0, 0)
+        this.add.rectangle(580, 0, 3, game.config.height, 0xFFFFFF).setOrigin(0, 0)
 
-        this.player = new Player(this, game.config.width - 40, 280, 'player', 0, 'horizontal').setOrigin(0.5, 0);
+        this.player = new Player(this, 405, game.config.height - 40, 'player', 0, 'vertical').setOrigin(0.5, 0);
 
         // player input (IT HAS TO BE AFTER PLAYER DECLARED FOR SOME REASON)
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
@@ -28,17 +28,19 @@ class PlayLeft extends Phaser.Scene{
 
         this.addBarrier();
         
-        // summon shift portal between 5000 and 10000
-        this.time.delayedCall(Phaser.Math.Between(5000, 10000), () => {
-            shiftPortal = this.physics.add.sprite(0, 345, 'shiftPortal').setOrigin(0.5).setScale(5);
-            shiftPortal.setVelocityX(500);
+        // summon shift barrier between 5000 and 10000
+        /* this.time.delayedCall(Phaser.Math.Between(5000, 10000), () => {
+            shiftPortal = this.physics.add.sprite(game.config.width, 345, 'shiftPortal').setOrigin(0.5).setScale(5);
+            shiftPortal.setVelocityX(-500);
             shiftPortal.setImmovable();
             //this.scene.start('playLeftScene')
-        })
+        }) */
+
+
     }
 
     addBarrier() {
-        let barrier = new BarrierHorizontal(this, 0, 500, 'left');
+        let barrier = new BarrierVertical(this, 0, 500, 'down');
         this.barrierGroup.add(barrier);
     }
 
@@ -64,16 +66,14 @@ class PlayLeft extends Phaser.Scene{
                 })}, null, this);
         } 
         this.physics.world.collide(this.player, this.barrierGroup, () => {
-                console.log('player destoryed')
-                this.player.isDestroyed = true;
-                //this.sound.play('sfx_player_destroyed');
-                // this.scene.start('gameoverScene')
-                this.player.disableBody();
-            }, () => {return this.player.isDamaged}, this);
+            this.player.isDestroyed = true;
+            //this.sound.play('sfx_player_destroyed');
+            // this.scene.start('endScene')
+            this.player.disableBody();
+        }, () => {return this.player.isDamaged}, this);
 
         this.physics.world.collide(this.player, shiftPortal, () => {
-            this.scene.start('playRightScene'),
-            console.log('shift');
+            this.scene.start('playLeftScene')
         }, null, this);
 
     }

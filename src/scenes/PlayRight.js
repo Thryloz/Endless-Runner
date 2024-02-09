@@ -4,14 +4,15 @@ class PlayRight extends Phaser.Scene{
     }
 
     create(){
-        // (x, y, size, color)
+        // (scene, x, y, size, color) ignore scene
+        this.cameras.main.shake(100, 0.0075);
         this.add.rectangle(0, 220, game.config.width, 3, 0xFFFFFF).setOrigin(0, 0)
         this.add.rectangle(0, 270, game.config.width, 3, 0xFFFFFF).setOrigin(0, 0)
         this.add.rectangle(0, 320, game.config.width, 3, 0xFFFFFF).setOrigin(0, 0)
         this.add.rectangle(0, 370, game.config.width, 3, 0xFFFFFF).setOrigin(0, 0)
         this.add.rectangle(0, 420, game.config.width, 3, 0xFFFFFF).setOrigin(0, 0)
 
-        this.player = new Player(this, 40, 280, 'player', 0).setOrigin(0.5, 0);
+        this.player = new Player(this, 40, 280, 'player', 0, 'horizontal').setOrigin(0.5, 0);
 
         // player input (IT HAS TO BE AFTER PLAYER DECLARED FOR SOME REASON)
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
@@ -39,7 +40,7 @@ class PlayRight extends Phaser.Scene{
     }
 
     addBarrier() {
-        let barrier = new Barrier(this, game.config.width, -500, 'right');
+        let barrier = new BarrierHorizontal(this, game.config.width, -500, 'right');
         this.barrierGroup.add(barrier);
     }
 
@@ -72,8 +73,7 @@ class PlayRight extends Phaser.Scene{
         }, () => {return this.player.isDamaged}, this);
 
         this.physics.world.collide(this.player, shiftPortal, () => {
-            this.scene.start('playLeftScene'),
-            console.log('shift');
+            this.scene.start('playLeftScene')
         }, null, this);
 
     }

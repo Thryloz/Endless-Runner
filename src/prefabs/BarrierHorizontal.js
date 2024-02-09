@@ -1,4 +1,4 @@
-class Barrier extends Phaser.Physics.Arcade.Sprite {
+class BarrierHorizontal extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, velocity, sceneDirection){
         let spawnLanePosition = [245, 295, 345, 395];
         let spawnLane = Math.floor(Math.random() * 4);
@@ -16,7 +16,7 @@ class Barrier extends Phaser.Physics.Arcade.Sprite {
     update(){
         if (this.sceneDirection === 'right') {
             if(this.BarrierExists && this.x < game.config.width-300) {
-                this.scene.addBarrier(this.parent, this.velocity);
+                this.scene.addBarrier();
                 this.BarrierExists = false;
             }
 
@@ -27,7 +27,7 @@ class Barrier extends Phaser.Physics.Arcade.Sprite {
 
         if (this.sceneDirection === 'left') {
             if(this.BarrierExists && this.x > game.config.width-600) {
-                this.scene.addBarrier(this.parent, this.velocity);
+                this.scene.addBarrier();
                 this.BarrierExists = false;
             }
 
