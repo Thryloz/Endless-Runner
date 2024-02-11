@@ -22,6 +22,7 @@ class PlayLeft extends Phaser.Scene{
         this.add.rectangle(0, 370, game.config.width, 3, 0xFFFFFF, 0.2).setOrigin(0, 0)
         this.add.rectangle(0, 420, game.config.width, 3, 0xFFFFFF, 0.2).setOrigin(0, 0)
 
+        // player
         this.player = new Player(this, game.config.width - 40, 280, 'player', 0, 'horizontal').setOrigin(0.5, 0);
 
         // player input (IT HAS TO BE AFTER PLAYER DECLARED FOR SOME REASON)
@@ -38,6 +39,7 @@ class PlayLeft extends Phaser.Scene{
 
         this.addBarrier();
         
+        // random scene choosing
         possibleScenes = ['playRightScene', 'playDownScene', 'playUpScene']
         nextScene = Math.floor(Math.random() * 3);
 
@@ -48,9 +50,9 @@ class PlayLeft extends Phaser.Scene{
             shiftPortal.setImmovable();
         })
 
-        // difficulty increase every 10 seconds
+        // difficulty 
         this.difficultyTimer = this.time.addEvent({
-            delay: 10000, 
+            delay: 1000, 
             callback: this.difficultyUp,
             callbackScope: this,
             loop: true
@@ -67,6 +69,8 @@ class PlayLeft extends Phaser.Scene{
         if (!this.player.isDestroyed){
             this.player.update();
         }
+        
+        // collision handling
         // obj1, obj2, collideCallback, proccessCallback (return bool), scope (scene)
         // unfortunately have to handle player collision here instead of player prejab because disableBody() out of scope in player
         if (!this.player.isDamaged) {
@@ -84,12 +88,11 @@ class PlayLeft extends Phaser.Scene{
                 })}, null, this);
         } 
         this.physics.world.collide(this.player, this.barrierGroup, () => {
-                console.log('player destoryed')
-                this.player.isDestroyed = true;
-                //this.sound.play('sfx_player_destroyed');
-                // this.scene.start('gameoverScene')
-                this.player.disableBody();
-            }, () => {return this.player.isDamaged}, this);
+            this.player.isDestroyed = true;
+            //this.sound.play('sfx_player_destroyed');
+            // this.scene.start('gameoverScene')
+            this.player.disableBody();
+        }, () => {return this.player.isDamaged}, this);
 
         this.physics.world.collide(this.player, shiftPortal, () => {
             this.scene.start(possibleScenes[nextScene], level)
@@ -104,6 +107,5 @@ class PlayLeft extends Phaser.Scene{
 
     difficultyUp() {
         level += 1;
-        console.log("difficulty increased")
     }
 }

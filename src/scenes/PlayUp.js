@@ -1,16 +1,16 @@
-class PlayUp extends Phaser.Scene{
+class PlayDown extends Phaser.Scene{
     constructor(){
-        super('playUpScene')
+        super('playDownScene')
     }
 
     create(){
         // (scene, x, y, width, height, color) // ignore scene
         this.cameras.main.shake(100, 0.0075);
-        this.add.rectangle(380, 0, 3, game.config.height, 0xFFFFFF).setOrigin(0, 0)
-        this.add.rectangle(430, 0, 3, game.config.height, 0xFFFFFF).setOrigin(0, 0)
-        this.add.rectangle(480, 0, 3, game.config.height, 0xFFFFFF).setOrigin(0, 0)
-        this.add.rectangle(530, 0, 3, game.config.height, 0xFFFFFF).setOrigin(0, 0)
-        this.add.rectangle(580, 0, 3, game.config.height, 0xFFFFFF).setOrigin(0, 0)
+        this.add.rectangle(380, 0, 3, game.config.height, 0.2, 0xFFFFFF).setOrigin(0, 0)
+        this.add.rectangle(430, 0, 3, game.config.height, 0.2, 0xFFFFFF).setOrigin(0, 0)
+        this.add.rectangle(480, 0, 3, game.config.height, 0.2, 0xFFFFFF).setOrigin(0, 0)
+        this.add.rectangle(530, 0, 3, game.config.height, 0.2, 0xFFFFFF).setOrigin(0, 0)
+        this.add.rectangle(580, 0, 3, game.config.height, 0.2, 0xFFFFFF).setOrigin(0, 0)
 
         this.player = new Player(this, 455, 40 , 'player', 0, 'vertical').setOrigin(0.5, 0);
 
@@ -31,13 +31,21 @@ class PlayUp extends Phaser.Scene{
         possibleScenes = ['playLeftScene', 'playDownScene', 'playLeftScene']
         nextScene = Math.floor(Math.random() * 3);
         
-        // summon shift barrier between 5000 and 10000
-        this.time.delayedCall(Phaser.Math.Between(300, 5000), () => {
+        // summon shift barrier between 10 to 15 seconds
+        this.time.delayedCall(Phaser.Math.Between(10000, 15000), () => {
             shiftPortal = this.physics.add.sprite(445, game.config.height, 'shiftPortal').setOrigin(0.5).setScale(5);
             shiftPortal.setVelocityY(-500);
             shiftPortal.setImmovable();
             //this.scene.start('playLeftScene')
-    })
+        })
+
+        // difficulty 
+        this.difficultyTimer = this.time.addEvent({
+            delay: 1000, 
+            callback: this.difficultyUp,
+            callbackScope: this,
+            loop: true
+        })
     }
 
     addBarrier() {
@@ -77,5 +85,9 @@ class PlayUp extends Phaser.Scene{
             this.scene.start(possibleScenes[nextScene])
         }, null, this);
 
+    }
+
+    difficultyUp() {
+        level += 1;
     }
 }

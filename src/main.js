@@ -41,3 +41,4 @@ let isDestroyed = false;
 let possibleScenes = null;
 let nextScene = null;
 let level = 0;
+let barrierMaxSpeed = 1200;
