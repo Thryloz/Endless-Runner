@@ -7,17 +7,64 @@ class BarrierVertical extends Phaser.Physics.Arcade.Sprite {
     
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
-        this.setVelocityY(velocity);
         this.setImmovable();
         this.sceneDirection = sceneDirection;
+        if (sceneDirection === 'up') {this.setVelocityY(-300)} else {this.setVelocityY(300)}
         this.BarrierExists = true;
     }
 
     update(){
         if (this.sceneDirection === 'up') {
-            if(this.BarrierExists && this.y < game.config.height-300) {
-                this.scene.addBarrier();
-                this.BarrierExists = false;
+            switch(level) {
+                case 0:
+                    this.setVelocityY(-300);
+                    if(this.BarrierExists && this.y < game.config.height-300) {
+                        this.scene.addBarrier();
+                        this.BarrierExists = false;
+                    }
+                    break;
+                case 1:
+                    this.setVelocityY(-400);
+                    if(this.BarrierExists && this.y < game.config.height-250) {
+                        this.scene.addBarrier();
+                        this.BarrierExists = false;
+                    }
+                    break;
+                case 2:
+                    this.setVelocityY(-500);
+                    if(this.BarrierExists && this.y < game.config.height-200) {
+                        this.scene.addBarrier();
+                        this.BarrierExists = false;
+                    }
+                    break;
+                case 3:
+                    this.setVelocityY(-600);
+                    if(this.BarrierExists && this.y < game.config.height-150) {
+                        this.scene.addBarrier();
+                        this.BarrierExists = false;
+                    }
+                    break;
+                case 4:
+                    this.setVelocityY(-700);
+                    if(this.BarrierExists && this.y < game.config.height-100) {
+                        this.scene.addBarrier();
+                        this.BarrierExists = false;
+                    }
+                    break;
+                case 5:
+                    this.setVelocityY(-800);
+                    if(this.BarrierExists && this.y < game.config.height-100) {
+                        this.scene.addBarrier();
+                        this.BarrierExists = false;
+                    }
+                    break;
+                case 6:
+                    this.setVelocityY(-900);
+                    if(this.BarrierExists && this.y < game.config.height-100) {
+                        this.scene.addBarrier();
+                        this.BarrierExists = false;
+                    }
+                    break;
             }
 
             if(this.y < 0) {
@@ -27,9 +74,56 @@ class BarrierVertical extends Phaser.Physics.Arcade.Sprite {
         }
 
         if (this.sceneDirection === 'down') {
-            if(this.BarrierExists && this.y > game.config.height-200) {
-                this.scene.addBarrier();
-                this.BarrierExists = false;
+            switch(level) {
+                case 0:
+                    this.setVelocityY(300);
+                    if(this.BarrierExists && this.y > 300) {
+                        this.scene.addBarrier();
+                        this.BarrierExists = false;
+                    }
+                    break;
+                case 1:
+                    this.setVelocityY(400);
+                    if(this.BarrierExists && this.y > 250) {
+                        this.scene.addBarrier();
+                        this.BarrierExists = false;
+                    }
+                    break;
+                case 2:
+                    this.setVelocityY(500);
+                    if(this.BarrierExists && this.y > 200) {
+                        this.scene.addBarrier();
+                        this.BarrierExists = false;
+                    }
+                    break;
+                case 3:
+                    this.setVelocityY(600);
+                    if(this.BarrierExists && this.y > 150) {
+                        this.scene.addBarrier();
+                        this.BarrierExists = false;
+                    }
+                    break;
+                case 4:
+                    this.setVelocityY(700);
+                    if(this.BarrierExists && this.y > 100) {
+                        this.scene.addBarrier();
+                        this.BarrierExists = false;
+                    }
+                    break;
+                case 5:
+                    this.setVelocityY(800);
+                    if(this.BarrierExists && this.y > 100) {
+                        this.scene.addBarrier();
+                        this.BarrierExists = false;
+                    }
+                    break;
+                case 6:
+                    this.setVelocityY(900);
+                    if(this.BarrierExists && this.y > 100) {
+                        this.scene.addBarrier();
+                        this.BarrierExists = false;
+                    }
+                    break;
             }
 
             if(this.y > game.config.height) {

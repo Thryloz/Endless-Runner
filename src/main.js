@@ -22,7 +22,7 @@ let config = {
             }
         }
     },
-    scene: [ PlayUp, PlayLeft, PlayDown, PlayRight ]
+    scene: [ Menu, PlayRight, PlayLeft, PlayDown, PlayUp ]
 }
 
 let game = new Phaser.Game(config);
@@ -41,5 +41,3 @@ let isDestroyed = false;
 let possibleScenes = null;
 let nextScene = null;
 let level = 0;
-let barrierSpeed = 300;
-let barrierMaxSpeed = 1200;

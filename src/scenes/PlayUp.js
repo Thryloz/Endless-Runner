@@ -12,7 +12,7 @@ class PlayUp extends Phaser.Scene{
         this.add.rectangle(530, 0, 3, game.config.height, 0xFFFFFF).setOrigin(0, 0)
         this.add.rectangle(580, 0, 3, game.config.height, 0xFFFFFF).setOrigin(0, 0)
 
-        this.player = new Player(this, 405, 40 , 'player', 0, 'vertical').setOrigin(0.5, 0);
+        this.player = new Player(this, 455, 40 , 'player', 0, 'vertical').setOrigin(0.5, 0);
 
         // player input (IT HAS TO BE AFTER PLAYER DECLARED FOR SOME REASON)
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
@@ -41,7 +41,7 @@ class PlayUp extends Phaser.Scene{
     }
 
     addBarrier() {
-        let barrier = new BarrierVertical(this, game.config.height, -barrierSpeed, 'up');
+        let barrier = new BarrierVertical(this, game.config.height, level, 'up');
         this.barrierGroup.add(barrier);
     }
 
