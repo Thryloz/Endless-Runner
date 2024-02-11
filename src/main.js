@@ -15,14 +15,14 @@ let config = {
     physics: {
         default: 'arcade',
         arcade:{
-            debug: true,
+            //debug: true,
             gravity: {
                 x:0,
                 y:0
             }
         }
     },
-    scene: [ Menu, PlayRight, PlayLeft, PlayDown, PlayUp ]
+    scene: [ Menu, PlayUp, PlayRight, PlayLeft, PlayDown ]
 }
 
 let game = new Phaser.Game(config);

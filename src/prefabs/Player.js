@@ -7,16 +7,17 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         isDamaged = false;
         isDestroyed = false;
         this.setCollideWorldBounds(true);
+        this.setBounce(0);
         this.type = type;
         
     }
 
     update() {
         if (this.type === 'horizontal'){
-            if (Phaser.Input.Keyboard.JustDown(keyDOWN) && this.y != 380){ // bottom lane
+            if (Phaser.Input.Keyboard.JustDown(keyDOWN) && this.y != 375){ // bottom lane
                 this.y += 50;
             }
-            if (Phaser.Input.Keyboard.JustDown(keyUP) && this.y != 230){ // top lane
+            if (Phaser.Input.Keyboard.JustDown(keyUP) && this.y != 225){ // top lane
                 this.y -= 50;
             }
             if(keyLEFT.isDown){

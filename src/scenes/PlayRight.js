@@ -16,14 +16,16 @@ class PlayRight extends Phaser.Scene{
 
         // (scene, x, y, width, height, color) ignore scene
         this.cameras.main.shake(100, 0.0075);
-        this.add.rectangle(0, 220, game.config.width, 3, 0xFFFFFF, 0.2).setOrigin(0, 0)
-        this.add.rectangle(0, 270, game.config.width, 3, 0xFFFFFF, 0.2).setOrigin(0, 0)
-        this.add.rectangle(0, 320, game.config.width, 3, 0xFFFFFF, 0.2).setOrigin(0, 0)
-        this.add.rectangle(0, 370, game.config.width, 3, 0xFFFFFF, 0.2).setOrigin(0, 0)
-        this.add.rectangle(0, 420, game.config.width, 3, 0xFFFFFF, 0.2).setOrigin(0, 0)
+        this.add.rectangle(0, 220, game.config.width, 3, 0xFFFFFF, 0.2).setOrigin(0, 0).setDepth(3)
+        this.add.rectangle(0, 270, game.config.width, 3, 0xFFFFFF, 0.2).setOrigin(0, 0).setDepth(3)
+        this.add.rectangle(0, 320, game.config.width, 3, 0xFFFFFF, 0.2).setOrigin(0, 0).setDepth(3)
+        this.add.rectangle(0, 370, game.config.width, 3, 0xFFFFFF, 0.2).setOrigin(0, 0).setDepth(3)
+        this.add.rectangle(0, 420, game.config.width, 3, 0xFFFFFF, 0.2).setOrigin(0, 0).setDepth(3)
 
         // player
-        this.player = new Player(this, 40, 280, 'player', 0, 'horizontal').setOrigin(0.5, 0);
+        this.player = new Player(this, 40, 275, 'player', 0, 'horizontal').setOrigin(0.5, 0).setScale(0.35);
+        this.player.play('idle');
+        this.player.preFX.addGlow(0x00faff, 1, 0);
 
         // player input (IT HAS TO BE AFTER PLAYER DECLARED FOR SOME REASON)
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
@@ -43,12 +45,38 @@ class PlayRight extends Phaser.Scene{
         possibleScenes = ['playLeftScene' , 'playDownScene', 'playUpScene']
         nextScene = Math.floor(Math.random() * 3);
 
-        // summon shift portal between 10 to 15 seconds
-        this.time.delayedCall(Phaser.Math.Between(10000, 15000), () => {
-            shiftPortal = this.physics.add.sprite(game.config.width, 345, 'shiftPortal').setOrigin(0.5).setScale(5);
-            shiftPortal.setVelocityX(-500);
-            shiftPortal.setImmovable();
-        })
+        // summon shift portal
+        if (level < 10){
+            this.time.delayedCall(Phaser.Math.Between(10000, 15000), () => {
+                shiftPortal = this.physics.add.sprite(game.config.width, 320, 'portal').setOrigin(0.5).setScale(0.5).setDepth(0).setFlip(true);
+                shiftPortal.setVelocityX(-300-(level*7));
+                shiftPortal.setImmovable();
+            })
+        } else if (level < 20){
+            this.time.delayedCall(Phaser.Math.Between(7000, 10000), () => {
+                shiftPortal = this.physics.add.sprite(game.config.width, 320, 'portal').setOrigin(0.5).setScale(0.5).setDepth(0).setFlip(true);
+                shiftPortal.setVelocityX(-300-(level*7));
+                shiftPortal.setImmovable();
+            })
+        } else if (level < 30){
+            this.time.delayedCall(Phaser.Math.Between(5000, 7000), () => {
+                shiftPortal = this.physics.add.sprite(game.config.width, 320, 'portal').setOrigin(0.5).setScale(0.5).setDepth(0).setFlip(true);
+                shiftPortal.setVelocityX(-300-(level*7));
+                shiftPortal.setImmovable();
+            })
+        } else if (level < 40) {
+            this.time.delayedCall(Phaser.Math.Between(3000, 5000), () => {
+                shiftPortal = this.physics.add.sprite(game.config.width, 320, 'portal').setOrigin(0.5).setScale(0.5).setDepth(0).setFlip(true);
+                shiftPortal.setVelocityX(-300-(level*7));
+                shiftPortal.setImmovable();
+            })
+        } else {
+            this.time.delayedCall(Phaser.Math.Between(1000, 3000), () => {
+                shiftPortal = this.physics.add.sprite(game.config.width, 320, 'portal').setOrigin(0.5).setScale(0.5).setDepth(0).setFlip(true);
+                shiftPortal.setVelocityX(-300-(level*7));
+                shiftPortal.setImmovable();
+            })
+        }
 
         // difficulty 
         this.difficultyTimer = this.time.addEvent({

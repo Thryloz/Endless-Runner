@@ -15,9 +15,9 @@ class BarrierHorizontal extends Phaser.Physics.Arcade.Sprite {
 
     update(){
         if (this.sceneDirection === 'right') {
-            if (Math.abs(-300-(level*10) < barrierMaxSpeed)){
-                this.setVelocityX(-300-(level*10));
-                console.log(-300-(level*10));
+            if (Math.abs(-300-(level*7) < barrierMaxSpeed)){
+                this.setVelocityX(-300-(level*7));
+                console.log(-300-(level*7));
             }
              
             if(this.BarrierExists && this.x < game.config.width-300+level) {
@@ -32,9 +32,9 @@ class BarrierHorizontal extends Phaser.Physics.Arcade.Sprite {
         }
 
         if (this.sceneDirection === 'left') {
-            if (300+(level*10) < barrierMaxSpeed){
-                this.setVelocityX(300+(level*10));
-                console.log(300+(level*10))
+            if (300+(level*7) < barrierMaxSpeed){
+                this.setVelocityX(300+(level*7));
+                console.log(300+(level*7))
             }
             if(this.BarrierExists && this.x > 300-level) {
                 //console.log(300+level)
