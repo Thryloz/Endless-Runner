@@ -15,7 +15,8 @@ class PlayDown extends Phaser.Scene{
         // player
         this.player = new Player(this, 455, 40 , 'player', 0, 'vertical').setOrigin(0.5, 0).setScale(0.35);
         this.player.play('idle')
-        this.player.preFX.addGlow(0x00faff, 1, 0);
+        this.player_glow = this.player.preFX.addGlow(0x00faff, 1, 0); // blue glow
+        this.player_damaged_glow = this.player.preFX.addGlow(0xfb5c00, 1.5, 0).setActive(false); // orange glow
 
         // player input (IT HAS TO BE AFTER PLAYER DECLARED FOR SOME REASON)
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
@@ -94,13 +95,16 @@ class PlayDown extends Phaser.Scene{
                 this.player.isDamaged = true;
                 //this.sound.play('sfx_player_damaged');
                 this.cameras.main.shake(100, 0.0075); // shake camera
-                this.player.disableBody();
-                this.time.delayedCall(200, () => {this.player.enableBody()});
-                // set texture
+                this.player.disableBody(); // temporarily disable collision
+                this.time.delayedCall(300, () => {this.player.enableBody()});
+                this.player.play('damaged') // play damaged animation
+                this.player_glow.setActive(false); // disable blue glow
+                this.player_damaged_glow.setActive(true); // enable orange glow
                 this.time.delayedCall(2500, () => { // timer for player damage
                     this.player.isDamaged = false;
-                    console.log("player undamaged")
-                    // set undamaged texture
+                    this.player.play('idle')
+                    this.player_glow.setActive(true); // enable blue glow
+                    this.player_damaged_glow.setActive(false); // disbale orange glow
                 })}, null, this);
         } 
         this.physics.world.collide(this.player, this.barrierGroup, () => {

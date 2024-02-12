@@ -16,16 +16,18 @@ class PlayRight extends Phaser.Scene{
 
         // (scene, x, y, width, height, color) ignore scene
         this.cameras.main.shake(100, 0.0075);
-        this.add.rectangle(0, 220, game.config.width, 3, 0xFFFFFF, 0.2).setOrigin(0, 0).setDepth(3)
-        this.add.rectangle(0, 270, game.config.width, 3, 0xFFFFFF, 0.2).setOrigin(0, 0).setDepth(3)
-        this.add.rectangle(0, 320, game.config.width, 3, 0xFFFFFF, 0.2).setOrigin(0, 0).setDepth(3)
-        this.add.rectangle(0, 370, game.config.width, 3, 0xFFFFFF, 0.2).setOrigin(0, 0).setDepth(3)
-        this.add.rectangle(0, 420, game.config.width, 3, 0xFFFFFF, 0.2).setOrigin(0, 0).setDepth(3)
+        this.add.rectangle(0, 220, game.config.width, 3, 0xFFFFFF, 0.2).setOrigin(0, 0)
+        this.add.rectangle(0, 270, game.config.width, 3, 0xFFFFFF, 0.2).setOrigin(0, 0)
+        this.add.rectangle(0, 320, game.config.width, 3, 0xFFFFFF, 0.2).setOrigin(0, 0)
+        this.add.rectangle(0, 370, game.config.width, 3, 0xFFFFFF, 0.2).setOrigin(0, 0)
+        this.add.rectangle(0, 420, game.config.width, 3, 0xFFFFFF, 0.2).setOrigin(0, 0)
 
         // player
         this.player = new Player(this, 40, 275, 'player', 0, 'horizontal').setOrigin(0.5, 0).setScale(0.35);
         this.player.play('idle');
-        this.player.preFX.addGlow(0x00faff, 1, 0);
+        this.player_glow = this.player.preFX.addGlow(0x00faff, 1, 0); // blue glow
+        this.player_damaged_glow = this.player.preFX.addGlow(0xfb5c00, 1.5, 0).setActive(false); // orange glow
+
 
         // player input (IT HAS TO BE AFTER PLAYER DECLARED FOR SOME REASON)
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
@@ -48,31 +50,31 @@ class PlayRight extends Phaser.Scene{
         // summon shift portal
         if (level < 10){
             this.time.delayedCall(Phaser.Math.Between(10000, 15000), () => {
-                shiftPortal = this.physics.add.sprite(game.config.width, 320, 'portal').setOrigin(0.5).setScale(0.5).setDepth(0).setFlip(true);
+                shiftPortal = this.physics.add.sprite(game.config.width, 320, 'portal').setOrigin(0.5).setScale(0.5).setFlip(true);
                 shiftPortal.setVelocityX(-300-(level*7));
                 shiftPortal.setImmovable();
             })
         } else if (level < 20){
             this.time.delayedCall(Phaser.Math.Between(7000, 10000), () => {
-                shiftPortal = this.physics.add.sprite(game.config.width, 320, 'portal').setOrigin(0.5).setScale(0.5).setDepth(0).setFlip(true);
+                shiftPortal = this.physics.add.sprite(game.config.width, 320, 'portal').setOrigin(0.5).setScale(0.5).setFlip(true);
                 shiftPortal.setVelocityX(-300-(level*7));
                 shiftPortal.setImmovable();
             })
         } else if (level < 30){
             this.time.delayedCall(Phaser.Math.Between(5000, 7000), () => {
-                shiftPortal = this.physics.add.sprite(game.config.width, 320, 'portal').setOrigin(0.5).setScale(0.5).setDepth(0).setFlip(true);
+                shiftPortal = this.physics.add.sprite(game.config.width, 320, 'portal').setOrigin(0.5).setScale(0.5).setFlip(true);
                 shiftPortal.setVelocityX(-300-(level*7));
                 shiftPortal.setImmovable();
             })
         } else if (level < 40) {
             this.time.delayedCall(Phaser.Math.Between(3000, 5000), () => {
-                shiftPortal = this.physics.add.sprite(game.config.width, 320, 'portal').setOrigin(0.5).setScale(0.5).setDepth(0).setFlip(true);
+                shiftPortal = this.physics.add.sprite(game.config.width, 320, 'portal').setOrigin(0.5).setScale(0.5).setFlip(true);
                 shiftPortal.setVelocityX(-300-(level*7));
                 shiftPortal.setImmovable();
             })
         } else {
             this.time.delayedCall(Phaser.Math.Between(1000, 3000), () => {
-                shiftPortal = this.physics.add.sprite(game.config.width, 320, 'portal').setOrigin(0.5).setScale(0.5).setDepth(0).setFlip(true);
+                shiftPortal = this.physics.add.sprite(game.config.width, 320, 'portal').setOrigin(0.5).setScale(0.5).setFlip(true);
                 shiftPortal.setVelocityX(-300-(level*7));
                 shiftPortal.setImmovable();
             })
@@ -106,13 +108,16 @@ class PlayRight extends Phaser.Scene{
                 this.player.isDamaged = true;
                 //this.sound.play('sfx_player_damaged');
                 this.cameras.main.shake(100, 0.0075); // shake camera
-                this.player.disableBody();
+                this.player.disableBody(); // temporarily disable collision
                 this.time.delayedCall(300, () => {this.player.enableBody()});
-                // set texture
+                this.player.play('damaged') // play damaged animation
+                this.player_glow.setActive(false); // disable blue glow
+                this.player_damaged_glow.setActive(true); // enable orange glow
                 this.time.delayedCall(2500, () => { // timer for player damage
                     this.player.isDamaged = false;
-                    console.log("player undamaged")
-                    // set undamaged texture
+                    this.player.play('idle')
+                    this.player_glow.setActive(true); // enable blue glow
+                    this.player_damaged_glow.setActive(false); // disbale orange glow
                 })}, null, this);
         } 
         this.physics.world.collide(this.player, this.barrierGroup, () => {

@@ -1,5 +1,5 @@
 class BarrierVertical extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, y, velocity, sceneDirection){
+    constructor(scene, y, level, sceneDirection){
         let spawnLanePosition = [405, 455, 505, 555];
         let spawnLane = Math.floor(Math.random() * 4);
         // scene, x, y, sprite name
@@ -17,7 +17,7 @@ class BarrierVertical extends Phaser.Physics.Arcade.Sprite {
         if (this.sceneDirection === 'up') {
             if (Math.abs(-300-(level*6) < barrierMaxSpeed)){
                 this.setVelocityY(-300-(level*6));
-                console.log(-300-(level*6));
+                //console.log(-300-(level*6));
             }
 
             if(this.BarrierExists && this.y < game.config.height-300+level) {
@@ -36,7 +36,7 @@ class BarrierVertical extends Phaser.Physics.Arcade.Sprite {
         if (this.sceneDirection === 'down') {
             if (300+(level*6) < barrierMaxSpeed){
                 this.setVelocityY(300+(level*6));
-                console.log(300+(level*6));
+                //console.log(300+(level*6));
             }
 
             if (this.BarrierExists && this.y > 300 - level){
