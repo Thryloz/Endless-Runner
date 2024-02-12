@@ -1,7 +1,8 @@
 // Jim Lee
 // Shift
 // Endless runner with changing perspectives gimmick
-// 8 hours in by thursday  
+// 15 hours
+// creative gimmick: switching perspectives. Went way beyond what we did in class 
 
 'use strict';
 
@@ -19,10 +20,10 @@ let config = {
             gravity: {
                 x:0,
                 y:0
-            }
+            },
         }
     },
-    scene: [ Menu, PlayUp, PlayRight, PlayLeft, PlayDown ]
+    scene: [ Menu, PlayUp, PlayRight, PlayLeft, PlayDown, GameOver ]
 }
 
 let game = new Phaser.Game(config);

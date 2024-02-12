@@ -20,7 +20,7 @@ class Menu extends Phaser.Scene{
         this.load.bitmapFont('gem', './assets/gem.png', './assets/gem.xml'); // yoinked from example
     }
 
-    create(){ //https://blog.ourcade.co/posts/2020/phaser-3-ui-menu-selection-cursor-selector/
+    create(){
         this.anims.create({
             key: 'idle',
             frameRate: 12,
@@ -34,13 +34,16 @@ class Menu extends Phaser.Scene{
             frames: this.anims.generateFrameNumbers('player', { start: 4, end: 7 }),
         })
         
-        this.add.image(width/2, 200, 'SMOL FLAME');
+        this.add.image(width/2, 150, 'SMOL FLAME').setScale(0.7, 0.5);
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
         keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
-        let PLAY = this.add.bitmapText(width/2, 350, 'gem', 'PLAY', 64).setOrigin(0.5).setTint(0x00faff);
-        let CREDITS = this.add.bitmapText(width/2, 450, 'gem', 'CREDITS', 64).setOrigin(0.5).setTint(0x00faff);
+        this.PLAY = this.add.bitmapText(width/2, 350, 'gem', 'PLAY', 64).setOrigin(0.5).setTint(0x00faff).setScale(1.2);
+        this.CREDITS = this.add.bitmapText(width/2, 450, 'gem', 'CREDITS', 64).setOrigin(0.5).setTint(0x00faff);
+        this.instructions = this.add.bitmapText(width/2, 600, 'gem', 'Use ARROW keys and ENTER', 32).setOrigin(0.5).setTint(0xFFFFFF);
+
+        // cursor
         this.cursor = this.add.sprite((width/2)+200, 350, 'player').setScale(0.5)
         this.cursor.play('idle')
         this.cursor.preFX.addGlow(0x00faff, 1, 0);
@@ -52,9 +55,13 @@ class Menu extends Phaser.Scene{
     update(){
         if (Phaser.Input.Keyboard.JustDown(keyDOWN) && this.cursor.y != 450){ // PLAY
             this.cursor.y += 100;
+            this.PLAY.setScale(1)
+            this.CREDITS.setScale(1.2)
         }
         if (Phaser.Input.Keyboard.JustDown(keyUP) && this.cursor.y != 350){ // CREDITS
             this.cursor.y -= 100;
+            this.PLAY.setScale(1.2)
+            this.CREDITS.setScale(1)
         }
         
         if (Phaser.Input.Keyboard.JustDown(keyENTER) && this.cursor.y == 350){ // PLAY
