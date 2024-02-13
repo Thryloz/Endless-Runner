@@ -1,7 +1,7 @@
 // Jim Lee
-// Shift
+// Smol Flame
 // Endless runner with changing perspectives gimmick
-// 15 hours
+// 17 hours
 // creative gimmick: switching perspectives. Went way beyond what we did in class 
 
 'use strict';

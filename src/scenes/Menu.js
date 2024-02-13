@@ -16,8 +16,14 @@ class Menu extends Phaser.Scene{
         this.load.image('clouds_back_sky', './assets/clouds_back_sky.png');
         this.load.image('clouds_front_sky', './assets/clouds_front_sky.png');
         this.load.image('playfield_background', './assets/playfield_background.png');
+        
+        
 
         this.load.bitmapFont('gem', './assets/gem.png', './assets/gem.xml'); // yoinked from example
+
+        this.load.audio('menu_select', ['./assets/back-button-hover.wav']); // by dlwnstns
+
+        //https://vinxis.moe/
     }
 
     create(){
@@ -47,7 +53,6 @@ class Menu extends Phaser.Scene{
         this.cursor = this.add.sprite((width/2)+200, 350, 'player').setScale(0.5)
         this.cursor.play('idle')
         this.cursor.preFX.addGlow(0x00faff, 1, 0);
-        
 
 
     }
@@ -57,11 +62,13 @@ class Menu extends Phaser.Scene{
             this.cursor.y += 100;
             this.PLAY.setScale(1)
             this.CREDITS.setScale(1.2)
+            this.sound.play('menu_select', { volume: 0.2 })
         }
         if (Phaser.Input.Keyboard.JustDown(keyUP) && this.cursor.y != 350){ // CREDITS
             this.cursor.y -= 100;
             this.PLAY.setScale(1.2)
             this.CREDITS.setScale(1)
+            this.sound.play('menu_select', { volume: 0.2 })
         }
         
         if (Phaser.Input.Keyboard.JustDown(keyENTER) && this.cursor.y == 350){ // PLAY
