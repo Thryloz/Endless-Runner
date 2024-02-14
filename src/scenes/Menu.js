@@ -12,11 +12,16 @@ class Menu extends Phaser.Scene{
         })
 
         this.load.image('SMOL FLAME', './assets/smol_flame.png');
+        this.load.image('barrier', './assets/barrier.png');
         this.load.image('portal', './assets/portal.png');
+
+
         this.load.image('star_sky', './assets/star_sky.png');
         this.load.image('clouds_back_sky', './assets/clouds_back_sky.png');
         this.load.image('clouds_front_sky', './assets/clouds_front_sky.png');
         this.load.image('playfield_background', './assets/playfield_background.png');
+        this.load.image('star_sky_veritcal', './assets/star_sky_vertical.png');
+
         
         
         
@@ -56,7 +61,9 @@ class Menu extends Phaser.Scene{
         });
         this.fire_sfx.play();
 
-        
+        tps = 0;
+        level = 0;
+
 
         this.add.image(width/2, 150, 'SMOL FLAME').setScale(0.7, 0.5);
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
@@ -65,7 +72,7 @@ class Menu extends Phaser.Scene{
 
         this.PLAY = this.add.bitmapText(width/2, 350, 'gem', 'PLAY', 64).setOrigin(0.5).setTint(0x00faff).setScale(1.2);
         this.CREDITS = this.add.bitmapText(width/2, 450, 'gem', 'CREDITS', 64).setOrigin(0.5).setTint(0x00faff);
-        this.instructions = this.add.bitmapText(width/2, 600, 'gem', 'Use ARROW keys and ENTER', 32).setOrigin(0.5).setTint(0xFFFFFF);
+        this.instructions = this.add.bitmapText(width/2, 550, 'gem', 'Use ARROW keys and ENTER', 32).setOrigin(0.5).setTint(0xFFFFFF);
 
         // cursor
         this.cursor = this.add.sprite((width/2)+200, 350, 'player').setScale(0.5)
@@ -89,9 +96,11 @@ class Menu extends Phaser.Scene{
             this.sound.play('menu_select', { volume: 0.1 })
         }
         if (keyENTER.isDown && this.cursor.y == 450){ // CREDITS
+            this.sound.play('teleport_sfx');
             this.scene.start('creditsScene')
         } 
         if (keyENTER.isDown && this.cursor.y == 350){ // PLAY
+            this.sound.play('teleport_sfx');
             this.scene.start('playRightScene', this.fire_sfx) 
         }
     }

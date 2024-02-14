@@ -63,6 +63,8 @@ class PlayRight extends Phaser.Scene{
 
         // summon shift portal
         if (level < 10){
+            this.ARROW = this.add.bitmapText(250, 600, 'gem', 'Use ARROW keys to move', 24).setOrigin(0.5).setTint(0xffffff).setScale(1.2);
+            this.ENTER = this.add.bitmapText(700, 600, 'gem', 'ENTER to go back to Menu', 24).setOrigin(0.5).setTint(0xffffff).setScale(1.2);
             this.time.delayedCall(Phaser.Math.Between(10000, 15000), () => {
                 shiftPortal = this.physics.add.sprite(game.config.width, 320, 'portal').setOrigin(0.5).setScale(0.5).setFlip(true);
                 shiftPortal.setVelocityX(-300-(level*7));

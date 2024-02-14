@@ -15,7 +15,7 @@ class GameOver extends Phaser.Scene{
         keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
         this.add.bitmapText(width/2, 200, 'gem', `Burned for ${level}s`, 48).setOrigin(0.5).setTint(0x00faff);
-        if (tps == 0){
+        if (tps == 1){
             this.add.bitmapText(width/2, height/2, 'gem', `Teleported ${tps} time`, 48).setOrigin(0.5).setTint(0x00faff);
         } else {
             this.add.bitmapText(width/2, height/2, 'gem', `Teleported ${tps} times`, 48).setOrigin(0.5).setTint(0x00faff);

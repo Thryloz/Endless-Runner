@@ -4,6 +4,10 @@ class PlayDown extends Phaser.Scene{
     }
 
     create(){
+        //bg
+        this.star_sky_vertical_left = this.add.tileSprite(0, 0, game.config.width-580, game.config.height, 'star_sky_veritcal').setOrigin(0,0).setFlip(true)
+        this.star_sky_vertical_right = this.add.tileSprite(580, 0, game.config.width-580, game.config.height, 'star_sky_veritcal').setOrigin(0,0)
+
         // (scene, x, y, width, height, color) // ignore scene
         this.cameras.main.shake(100, 0.0075);
         this.add.rectangle(380, 0, 3, game.config.height, 0xFFFFFF, 0.2).setOrigin(0, 0)
@@ -126,6 +130,13 @@ class PlayDown extends Phaser.Scene{
             tps++;
         }, null, this);
 
+        //background movement
+        this.star_sky_vertical_left.tilePositionY += 0.4;
+        this.star_sky_vertical_left.tilePositionX += 0.1;
+        this.star_sky_vertical_right.tilePositionY += 0.4;
+        this.star_sky_vertical_right.tilePositionX += 0.1;
+    
+    
     }
 
     difficultyUp() {

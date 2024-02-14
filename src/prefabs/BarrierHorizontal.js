@@ -11,6 +11,7 @@ class BarrierHorizontal extends Phaser.Physics.Arcade.Sprite {
         this.sceneDirection = sceneDirection;
         if (sceneDirection === 'right') {this.setVelocityX(-300)} else {this.setVelocityX(300)}
         this.BarrierExists = true;
+        this.setScale(0.3)
     }
 
     update(){

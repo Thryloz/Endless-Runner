@@ -11,6 +11,7 @@ class BarrierVertical extends Phaser.Physics.Arcade.Sprite {
         this.sceneDirection = sceneDirection;
         if (sceneDirection === 'up') {this.setVelocityY(-300)} else {this.setVelocityY(300)}
         this.BarrierExists = true;
+        this.setScale(0.3)
     }
 
     update(){
