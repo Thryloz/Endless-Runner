@@ -105,7 +105,12 @@ class PlayLeft extends Phaser.Scene{
         if (!this.player.isDamaged) {
             this.physics.world.collide(this.player, this.barrierGroup, () => {
                 this.player.isDamaged = true;
-                //this.sound.play('sfx_player_damaged');
+                // sfx 
+                let sfx_player_damage = this.sound.add('flame_damage');
+                sfx_player_damage.setVolume(0.1);
+                sfx_player_damage.play();
+                this.time.delayedCall(2500, () => {sfx_player_damage.destroy()}, null, this);
+
                 this.cameras.main.shake(100, 0.0075); // shake camera
                 this.player.disableBody(); // temporarily disable collision
                 this.time.delayedCall(300, () => {this.player.enableBody()});
@@ -127,7 +132,9 @@ class PlayLeft extends Phaser.Scene{
         }, () => {return this.player.isDamaged}, this);
 
         this.physics.world.collide(this.player, shiftPortal, () => {
-            this.scene.start(possibleScenes[nextScene], level)
+            this.sound.play('teleport_sfx')
+            this.scene.start(possibleScenes[nextScene], level),
+            tps++;
         }, null, this);
 
         // background movement

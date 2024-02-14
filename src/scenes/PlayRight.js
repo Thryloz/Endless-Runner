@@ -3,8 +3,8 @@ class PlayRight extends Phaser.Scene{
         super('playRightScene')
     }
 
-    init(level){
-        level = level;
+    init(fire_sfx){
+        this.fire_sfx = fire_sfx;
     }
 
     create(){
@@ -22,12 +22,26 @@ class PlayRight extends Phaser.Scene{
         this.add.rectangle(0, 370, game.config.width, 3, 0xFFFFFF, 0.2).setOrigin(0, 0)
         this.add.rectangle(0, 420, game.config.width, 3, 0xFFFFFF, 0.2).setOrigin(0, 0)
 
+        // bgm
+        if (!bgm_on){
+            this.bgm = this.sound.add('background_music', { 
+                mute: false,
+                volume: 0.05,
+                rate: 1,
+                loop: true 
+            });
+            this.bgm.play();
+            bgm_on = true;
+            this.fire_sfx.setVolume(0.05)
+        }
+
+        
+
         // player
         this.player = new Player(this, 40, 275, 'player', 0, 'horizontal').setOrigin(0.5, 0).setScale(0.35);
         this.player.play('idle');
         this.player_glow = this.player.preFX.addGlow(0x00faff, 1, 0); // blue glow
         this.player_damaged_glow = this.player.preFX.addGlow(0xfb5c00, 1.5, 0).setActive(false); // orange glow
-
 
         // player input (IT HAS TO BE AFTER PLAYER DECLARED FOR SOME REASON)
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
@@ -106,7 +120,12 @@ class PlayRight extends Phaser.Scene{
         if (!this.player.isDamaged) {
             this.physics.world.collide(this.player, this.barrierGroup, () => {
                 this.player.isDamaged = true;
-                //this.sound.play('sfx_player_damaged');
+                // sfx 
+                let sfx_player_damage = this.sound.add('flame_damage');
+                sfx_player_damage.setVolume(0.1);
+                sfx_player_damage.play();
+                this.time.delayedCall(2500, () => {sfx_player_damage.destroy()}, null, this);
+
                 this.cameras.main.shake(100, 0.0075); // shake camera
                 this.player.disableBody(); // temporarily disable collision
                 this.time.delayedCall(300, () => {this.player.enableBody()});
@@ -117,7 +136,7 @@ class PlayRight extends Phaser.Scene{
                     this.player.isDamaged = false;
                     this.player.play('idle')
                     this.player_glow.setActive(true); // enable blue glow
-                    this.player_damaged_glow.setActive(false); // disbale orange glow
+                    this.player_damaged_glow.setActive(false); // disable orange glow
                 })}, null, this);
         } 
 
@@ -130,7 +149,9 @@ class PlayRight extends Phaser.Scene{
         }, () => {return this.player.isDamaged}, this);
 
         this.physics.world.collide(this.player, shiftPortal, () => {
-            this.scene.start(possibleScenes[nextScene], level)
+            this.sound.play('teleport_sfx')
+            this.scene.start(possibleScenes[nextScene], level),
+            tps++;
         }, null, this);
 
         // background movement

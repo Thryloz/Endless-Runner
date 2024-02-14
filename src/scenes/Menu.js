@@ -1,3 +1,4 @@
+
 class Menu extends Phaser.Scene{
     constructor(){
         super('menuScene');
@@ -18,12 +19,16 @@ class Menu extends Phaser.Scene{
         this.load.image('playfield_background', './assets/playfield_background.png');
         
         
+        
 
         this.load.bitmapFont('gem', './assets/gem.png', './assets/gem.xml'); // yoinked from example
 
         this.load.audio('menu_select', ['./assets/back-button-hover.wav']); // by dlwnstns
-
-        //https://vinxis.moe/
+        this.load.audio('background_music', ['./assets/A Centralized View - VINXIS.mp3']); //https://vinxis.moe/ https://www.youtube.com/watch?v=K5UL_RxK0lk
+        this.load.audio('fire_sound', ['./assets/fire_sound.wav']) // fire sound https://freesound.org/people/leosalom/sounds/234288/
+        this.load.audio('flame_damage', ['./assets/short_fire1.5x.wav']) // from mixkit https://mixkit.co/free-sound-effects/fire/, but modified
+        this.load.audio('flame_going_out', ['./assets/flame_going_out.wav']) // i made this :D. that's why the quality is so much worse lmao   
+        this.load.audio('teleport_sfx', ['./assets/teleport sound.wav']) // made this in jfxr
     }
 
     create(){
@@ -40,6 +45,16 @@ class Menu extends Phaser.Scene{
             frames: this.anims.generateFrameNumbers('player', { start: 4, end: 7 }),
         })
         
+        this.fire_sfx = this.sound.add('fire_sound', { 
+            mute: false,
+            volume: 0.1,
+            rate: 1,
+            loop: true 
+        });
+        this.fire_sfx.play();
+
+        
+
         this.add.image(width/2, 150, 'SMOL FLAME').setScale(0.7, 0.5);
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
@@ -62,17 +77,17 @@ class Menu extends Phaser.Scene{
             this.cursor.y += 100;
             this.PLAY.setScale(1)
             this.CREDITS.setScale(1.2)
-            this.sound.play('menu_select', { volume: 0.2 })
+            this.sound.play('menu_select', { volume: 0.1 })
         }
         if (Phaser.Input.Keyboard.JustDown(keyUP) && this.cursor.y != 350){ // CREDITS
             this.cursor.y -= 100;
             this.PLAY.setScale(1.2)
             this.CREDITS.setScale(1)
-            this.sound.play('menu_select', { volume: 0.2 })
+            this.sound.play('menu_select', { volume: 0.1 })
         }
         
         if (Phaser.Input.Keyboard.JustDown(keyENTER) && this.cursor.y == 350){ // PLAY
-            this.scene.start('playRightScene')
+            this.scene.start('playRightScene', this.fire_sfx)
         }
     }
 

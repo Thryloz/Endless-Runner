@@ -1,7 +1,7 @@
 // Jim Lee
 // Smol Flame
 // Endless runner with changing perspectives gimmick
-// 17 hours
+// 22 hours
 // creative gimmick: switching perspectives. Went way beyond what we did in class 
 
 'use strict';
@@ -42,4 +42,6 @@ let isDestroyed = false;
 let possibleScenes = null;
 let nextScene = null;
 let level = 0;
+let tps = 0;
 let barrierMaxSpeed = 1200;
+let bgm_on = false;
