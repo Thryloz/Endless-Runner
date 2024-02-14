@@ -48,6 +48,7 @@ class PlayRight extends Phaser.Scene{
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+        keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
 
         // set up barrier group
@@ -146,7 +147,7 @@ class PlayRight extends Phaser.Scene{
         this.physics.world.collide(this.player, this.barrierGroup, () => {
             this.player.isDestroyed = true;
             //this.sound.play('sfx_player_destroyed');
-            this.scene.start('gameOverScene')
+            this.scene.start('gameOverScene', [this.player.x, this.player.y])
             this.player.disableBody();
         }, () => {return this.player.isDamaged}, this);
 
@@ -161,6 +162,10 @@ class PlayRight extends Phaser.Scene{
         this.back_clouds_background.tilePositionX += 0.5;
         this.front_clouds_background.tilePositionX += 2;
         this.playfield_background.tilePositionX += 0.2;
+
+        if (keyENTER.isDown){
+            this.scene.start('menuScene')
+        }
 
         
     }

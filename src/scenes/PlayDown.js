@@ -27,6 +27,7 @@ class PlayDown extends Phaser.Scene{
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+        keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
 
         // set up barrier group
@@ -136,7 +137,9 @@ class PlayDown extends Phaser.Scene{
         this.star_sky_vertical_right.tilePositionY += 0.4;
         this.star_sky_vertical_right.tilePositionX += 0.1;
     
-    
+        if (keyENTER.isDown){
+            this.scene.start('menuScene')
+        }
     }
 
     difficultyUp() {

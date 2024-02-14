@@ -33,6 +33,7 @@ class PlayLeft extends Phaser.Scene{
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+        keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
 
         // set up barrier group
@@ -142,6 +143,10 @@ class PlayLeft extends Phaser.Scene{
         this.back_clouds_background.tilePositionX -= 0.5;
         this.front_clouds_background.tilePositionX -= 2;
         this.playfield_background.tilePositionX -= 0.2;
+
+        if (keyENTER.isDown){
+            this.scene.start('menuScene')
+        }
     }
 
     difficultyUp() {

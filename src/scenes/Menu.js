@@ -50,6 +50,12 @@ class Menu extends Phaser.Scene{
                 repeat: -1,
                 frames: this.anims.generateFrameNumbers('player', { start: 4, end: 7 }),
             })
+            this.anims.create({
+                key: 'flame_going_out',
+                frameRate: 24,
+                repeat: 0,
+                frames: this.anims.generateFrameNumbers('player', { start: 8, end: 11 }),
+            })
             animations_created = true;
         }
         
