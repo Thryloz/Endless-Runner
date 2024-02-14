@@ -23,7 +23,7 @@ let config = {
             },
         }
     },
-    scene: [ Menu, PlayUp, PlayRight, PlayLeft, PlayDown, GameOver ]
+    scene: [ Menu, Credits, PlayUp, PlayRight, PlayLeft, PlayDown, GameOver ]
 }
 
 let game = new Phaser.Game(config);
@@ -45,3 +45,4 @@ let level = 0;
 let tps = 0;
 let barrierMaxSpeed = 1200;
 let bgm_on = false;
+let animations_created = false;

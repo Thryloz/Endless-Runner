@@ -32,18 +32,21 @@ class Menu extends Phaser.Scene{
     }
 
     create(){
-        this.anims.create({
-            key: 'idle',
-            frameRate: 12,
-            repeat: -1,
-            frames: this.anims.generateFrameNumbers('player', { start: 0, end: 3 }),
-        })
-        this.anims.create({
-            key: 'damaged',
-            frameRate: 12,
-            repeat: -1,
-            frames: this.anims.generateFrameNumbers('player', { start: 4, end: 7 }),
-        })
+        if (!animations_created){
+            this.anims.create({
+                key: 'idle',
+                frameRate: 12,
+                repeat: -1,
+                frames: this.anims.generateFrameNumbers('player', { start: 0, end: 3 }),
+            })
+            this.anims.create({
+                key: 'damaged',
+                frameRate: 12,
+                repeat: -1,
+                frames: this.anims.generateFrameNumbers('player', { start: 4, end: 7 }),
+            })
+            animations_created = true;
+        }
         
         this.fire_sfx = this.sound.add('fire_sound', { 
             mute: false,
@@ -85,9 +88,11 @@ class Menu extends Phaser.Scene{
             this.CREDITS.setScale(1)
             this.sound.play('menu_select', { volume: 0.1 })
         }
-        
-        if (Phaser.Input.Keyboard.JustDown(keyENTER) && this.cursor.y == 350){ // PLAY
-            this.scene.start('playRightScene', this.fire_sfx)
+        if (keyENTER.isDown && this.cursor.y == 450){ // CREDITS
+            this.scene.start('creditsScene')
+        } 
+        if (keyENTER.isDown && this.cursor.y == 350){ // PLAY
+            this.scene.start('playRightScene', this.fire_sfx) 
         }
     }
 
