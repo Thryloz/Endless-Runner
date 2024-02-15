@@ -131,6 +131,12 @@ class PlayDown extends Phaser.Scene{
             tps++;
         }, null, this);
 
+        if (shiftPortal != null){
+            this.physics.world.overlap(shiftPortal, this.barrierGroup, () => {
+                this.player.enableBody();
+            })
+        }
+
         //background movement
         this.star_sky_vertical_left.tilePositionY += 0.4;
         this.star_sky_vertical_left.tilePositionX += 0.1;

@@ -138,6 +138,12 @@ class PlayLeft extends Phaser.Scene{
             tps++;
         }, null, this);
 
+        if (shiftPortal != null){
+            this.physics.world.overlap(shiftPortal, this.barrierGroup, () => {
+                this.player.enableBody();
+            })
+        }
+
         // background movement
         this.star_background.tilePositionX -= 0.2;
         this.back_clouds_background.tilePositionX -= 0.5;
@@ -146,8 +152,8 @@ class PlayLeft extends Phaser.Scene{
 
         if (keyENTER.isDown){
             this.sound.removeByKey('background_music'); // delete music to be recreated if replayed
-            this.sound.removeByKey('fire_sound');
-            bgm_on = false;
+        this.sound.removeByKey('fire_sound');
+        bgm_on = false;
             this.scene.start('menuScene')
         }
     }

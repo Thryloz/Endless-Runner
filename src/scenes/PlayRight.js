@@ -131,7 +131,7 @@ class PlayRight extends Phaser.Scene{
 
                 this.cameras.main.shake(100, 0.0075); // shake camera
                 this.player.disableBody(); // temporarily disable collision
-                this.time.delayedCall(300, () => {this.player.enableBody()});
+                this.time.delayedCall(280, () => {this.player.enableBody()});
                 this.player.play('damaged') // play damaged animation
                 this.player_glow.setActive(false); // disable blue glow
                 this.player_damaged_glow.setActive(true); // enable orange glow
@@ -155,6 +155,12 @@ class PlayRight extends Phaser.Scene{
             this.scene.start(possibleScenes[nextScene], level),
             tps++;
         }, null, this);
+
+        if (shiftPortal != null){
+            this.physics.world.overlap(shiftPortal, this.barrierGroup, () => {
+                this.player.enableBody();
+            })
+        }
 
         // background movement
         this.star_background.tilePositionX += 0.2;
