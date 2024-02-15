@@ -6,7 +6,7 @@ class Menu extends Phaser.Scene{
     preload(){
 
 
-        this.load.spritesheet('player', './assets/player_atlas.png', {
+        this.load.spritesheet('player', './assets/player_spritesheet.png', {
             frameWidth: 128,
             frameHeight: 128,
         })
