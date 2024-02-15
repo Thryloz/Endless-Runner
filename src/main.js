@@ -1,6 +1,6 @@
 // Jim Lee
 // Smol Flame
-// Endless runner for CMPM 120 2/14/2024 
+// Endless runner for CMPM 120 Winter 2024 
 // 24 hours
 // creative gimmick: a lotta messing around with handling multiple scenes. Looked beyond the class for a lot of stuff such as menu, glow
 // collision disabling, general scene managment, animations, etc.
