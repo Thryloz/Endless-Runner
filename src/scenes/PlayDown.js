@@ -43,31 +43,31 @@ class PlayDown extends Phaser.Scene{
         // summon shift portal
         if (level < 10){
             this.time.delayedCall(Phaser.Math.Between(10000, 15000), () => {
-                shiftPortal = this.physics.add.sprite(490, game.config.height, 'portal').setOrigin(0.5).setScale(0.55).setDepth(0).setAngle(270).setSize(400, 200);
+                shiftPortal = this.physics.add.sprite(490, game.config.height, 'portal').setOrigin(0.5).setScale(0.55).setDepth(0).setAngle(270).setSize(400, 500).setOffset(-100, 150);
                 shiftPortal.setVelocityY(-300-(level*6));
                 shiftPortal.setImmovable();
             })
         } else if (level < 20){
             this.time.delayedCall(Phaser.Math.Between(7000, 10000), () => {
-                shiftPortal = this.physics.add.sprite(490, game.config.height, 'portal').setOrigin(0.5).setScale(0.55).setDepth(0).setAngle(270).setSize(400, 200);
+                shiftPortal = this.physics.add.sprite(490, game.config.height, 'portal').setOrigin(0.5).setScale(0.55).setDepth(0).setAngle(270).setSize(400, 500).setOffset(-100, 150);
                 shiftPortal.setVelocityY(-300-(level*6));
                 shiftPortal.setImmovable();
             })
         } else if (level < 30){
             this.time.delayedCall(Phaser.Math.Between(5000, 7000), () => {
-                shiftPortal = this.physics.add.sprite(490, game.config.height, 'portal').setOrigin(0.5).setScale(0.55).setDepth(0).setAngle(270).setSize(400, 200);
+                shiftPortal = this.physics.add.sprite(490, game.config.height, 'portal').setOrigin(0.5).setScale(0.55).setDepth(0).setAngle(270).setSize(400, 500).setOffset(-100, 150);
                 shiftPortal.setVelocityY(-300-(level*6));
                 shiftPortal.setImmovable();
             })
         } else if (level < 40) {
             this.time.delayedCall(Phaser.Math.Between(3000, 5000), () => {
-                shiftPortal = this.physics.add.sprite(490, game.config.height, 'portal').setOrigin(0.5).setScale(0.55).setDepth(0).setAngle(270).setSize(400, 200);
+                shiftPortal = this.physics.add.sprite(490, game.config.height, 'portal').setOrigin(0.5).setScale(0.55).setDepth(0).setAngle(270).setSize(400, 500).setOffset(-100, 150);
                 shiftPortal.setVelocityY(-300-(level*6));
                 shiftPortal.setImmovable();
             })
         } else {
             this.time.delayedCall(Phaser.Math.Between(1000, 3000), () => {
-                shiftPortal = this.physics.add.sprite(490, game.config.height, 'portal').setOrigin(0.5).setScale(0.55).setDepth(0).setAngle(270).setSize(400, 200);
+                shiftPortal = this.physics.add.sprite(490, game.config.height, 'portal').setOrigin(0.5).setScale(0.55).setDepth(0).setAngle(270).setSize(400, 500).setOffset(-100, 150);
                 shiftPortal.setVelocityY(-300-(level*6));
                 shiftPortal.setImmovable();
             })
@@ -130,12 +130,6 @@ class PlayDown extends Phaser.Scene{
             this.scene.start(possibleScenes[nextScene]),
             tps++;
         }, null, this);
-
-        if (shiftPortal != null){
-            this.physics.world.overlap(shiftPortal, this.barrierGroup, () => {
-                this.player.enableBody();
-            })
-        }
 
         //background movement
         this.star_sky_vertical_left.tilePositionY += 0.4;

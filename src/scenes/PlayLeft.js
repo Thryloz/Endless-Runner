@@ -50,31 +50,31 @@ class PlayLeft extends Phaser.Scene{
         // summon shift portal
         if (level < 10){
             this.time.delayedCall(Phaser.Math.Between(10000, 15000), () => {
-                shiftPortal = this.physics.add.sprite(0, 320, 'portal').setOrigin(0.5).setScale(0.5).setDepth(0)
+                shiftPortal = this.physics.add.sprite(0, 320, 'portal').setOrigin(0.5).setScale(0.5).setDepth(0).setSize(game.config.width, 320).setOffset(-800, 0)
                 shiftPortal.setVelocityX(300+(level*7));
                 shiftPortal.setImmovable();
             })
         } else if (level < 20){
             this.time.delayedCall(Phaser.Math.Between(7000, 10000), () => {
-                shiftPortal = this.physics.add.sprite(0, 320, 'portal').setOrigin(0.5).setScale(0.5).setDepth(0)
+                shiftPortal = this.physics.add.sprite(0, 320, 'portal').setOrigin(0.5).setScale(0.5).setDepth(0).setSize(game.config.width, 320).setOffset(-800, 0)
                 shiftPortal.setVelocityX(300+(level*7));
                 shiftPortal.setImmovable();
             })
         } else if (level < 30){
             this.time.delayedCall(Phaser.Math.Between(5000, 7000), () => {
-                shiftPortal = this.physics.add.sprite(0, 320, 'portal').setOrigin(0.5).setScale(0.5).setDepth(0)
+                shiftPortal = this.physics.add.sprite(0, 320, 'portal').setOrigin(0.5).setScale(0.5).setDepth(0).setSize(game.config.width, 320).setOffset(-800, 0)
                 shiftPortal.setVelocityX(300+(level*7));
                 shiftPortal.setImmovable();
             })
         } else if (level < 40) {
             this.time.delayedCall(Phaser.Math.Between(3000, 5000), () => {
-                shiftPortal = this.physics.add.sprite(0, 320, 'portal').setOrigin(0.5).setScale(0.5).setDepth(0)
+                shiftPortal = this.physics.add.sprite(0, 320, 'portal').setOrigin(0.5).setScale(0.5).setDepth(0).setSize(game.config.width, 320).setOffset(-800, 0)
                 shiftPortal.setVelocityX(300+(level*7));
                 shiftPortal.setImmovable();
             })
         } else {
             this.time.delayedCall(Phaser.Math.Between(1000, 3000), () => {
-                shiftPortal = this.physics.add.sprite(0, 320, 'portal').setOrigin(0.5).setScale(0.5).setDepth(0)
+                shiftPortal = this.physics.add.sprite(0, 320, 'portal').setOrigin(0.5).setScale(0.5).setDepth(0).setSize(game.config.width, 320).setOffset(-800, 0)
                 shiftPortal.setVelocityX(300+(level*7));
                 shiftPortal.setImmovable();
             })
@@ -137,12 +137,6 @@ class PlayLeft extends Phaser.Scene{
             this.scene.start(possibleScenes[nextScene], level),
             tps++;
         }, null, this);
-
-        if (shiftPortal != null){
-            this.physics.world.overlap(shiftPortal, this.barrierGroup, () => {
-                this.player.enableBody();
-            })
-        }
 
         // background movement
         this.star_background.tilePositionX -= 0.2;

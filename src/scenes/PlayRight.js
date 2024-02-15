@@ -67,31 +67,31 @@ class PlayRight extends Phaser.Scene{
             this.ARROW = this.add.bitmapText(250, 600, 'gem', 'Use ARROW keys to move', 24).setOrigin(0.5).setTint(0xffffff).setScale(1.2);
             this.ENTER = this.add.bitmapText(700, 600, 'gem', 'ENTER to go back to Menu', 24).setOrigin(0.5).setTint(0xffffff).setScale(1.2);
             this.time.delayedCall(Phaser.Math.Between(10000, 15000), () => {
-                shiftPortal = this.physics.add.sprite(game.config.width, 320, 'portal').setOrigin(0.5).setScale(0.5).setFlip(true);
+                shiftPortal = this.physics.add.sprite(game.config.width, 320, 'portal').setOrigin(0.5).setScale(0.5).setFlip(true).setSize(game.config.width, 320).setOffset(100, 0);
                 shiftPortal.setVelocityX(-300-(level*7));
                 shiftPortal.setImmovable();
             })
         } else if (level < 20){
             this.time.delayedCall(Phaser.Math.Between(7000, 10000), () => {
-                shiftPortal = this.physics.add.sprite(game.config.width, 320, 'portal').setOrigin(0.5).setScale(0.5).setFlip(true);
+                shiftPortal = this.physics.add.sprite(game.config.width, 320, 'portal').setOrigin(0.5).setScale(0.5).setFlip(true).setSize(game.config.width, 320).setOffset(100, 0);
                 shiftPortal.setVelocityX(-300-(level*7));
                 shiftPortal.setImmovable();
             })
         } else if (level < 30){
             this.time.delayedCall(Phaser.Math.Between(5000, 7000), () => {
-                shiftPortal = this.physics.add.sprite(game.config.width, 320, 'portal').setOrigin(0.5).setScale(0.5).setFlip(true);
+                shiftPortal = this.physics.add.sprite(game.config.width, 320, 'portal').setOrigin(0.5).setScale(0.5).setFlip(true).setSize(game.config.width, 320).setOffset(100, 0);
                 shiftPortal.setVelocityX(-300-(level*7));
                 shiftPortal.setImmovable();
             })
         } else if (level < 40) {
             this.time.delayedCall(Phaser.Math.Between(3000, 5000), () => {
-                shiftPortal = this.physics.add.sprite(game.config.width, 320, 'portal').setOrigin(0.5).setScale(0.5).setFlip(true);
+                shiftPortal = this.physics.add.sprite(game.config.width, 320, 'portal').setOrigin(0.5).setScale(0.5).setFlip(true).setSize(game.config.width, 320).setOffset(100, 0);
                 shiftPortal.setVelocityX(-300-(level*7));
                 shiftPortal.setImmovable();
             })
         } else {
             this.time.delayedCall(Phaser.Math.Between(1000, 3000), () => {
-                shiftPortal = this.physics.add.sprite(game.config.width, 320, 'portal').setOrigin(0.5).setScale(0.5).setFlip(true);
+                shiftPortal = this.physics.add.sprite(game.config.width, 320, 'portal').setOrigin(0.5).setScale(0.5).setFlip(true).setSize(game.config.width, 320).setOffset(100, 0);
                 shiftPortal.setVelocityX(-300-(level*7));
                 shiftPortal.setImmovable();
             })
@@ -156,11 +156,6 @@ class PlayRight extends Phaser.Scene{
             tps++;
         }, null, this);
 
-        if (shiftPortal != null){
-            this.physics.world.overlap(shiftPortal, this.barrierGroup, () => {
-                this.player.enableBody();
-            })
-        }
 
         // background movement
         this.star_background.tilePositionX += 0.2;

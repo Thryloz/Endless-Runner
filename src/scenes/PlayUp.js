@@ -44,32 +44,32 @@ class PlayUp extends Phaser.Scene{
         if (level < 10){
             this.time.delayedCall(Phaser.Math.Between(10000, 15000), () => {
                 // all the add ons are for adjusting it to fit properly
-                shiftPortal = this.physics.add.sprite(480, 0, 'portal').setOrigin(0.5).setScale(0.55).setDepth(0).setAngle(90).setSize(400, 200);
+                shiftPortal = this.physics.add.sprite(480, 0, 'portal').setOrigin(0.5).setScale(0.55).setDepth(0).setAngle(90).setSize(400, 500).setOffset(-100, -300);
                 shiftPortal.setVelocityY(300+(level*6));
                 shiftPortal.setImmovable();
                 shiftPortal.preFX.addGlow(0x24003c, 1, 0)
             })
         } else if (level < 20){
             this.time.delayedCall(Phaser.Math.Between(7000, 10000), () => {
-                shiftPortal = this.physics.add.sprite(480, 0, 'portal').setOrigin(0.5).setScale(0.55).setDepth(0).setAngle(90).setSize(400, 200);
+                shiftPortal = this.physics.add.sprite(480, 0, 'portal').setOrigin(0.5).setScale(0.55).setDepth(0).setAngle(90).setSize(400, 500).setOffset(-100, -300);
                 shiftPortal.setVelocityY(300+(level*6));
                 shiftPortal.setImmovable();
             })
         } else if (level < 30){
             this.time.delayedCall(Phaser.Math.Between(5000, 7000), () => {
-                shiftPortal = this.physics.add.sprite(480, 0, 'portal').setOrigin(0.5).setScale(0.55).setDepth(0).setAngle(90).setSize(400, 200);
+                shiftPortal = this.physics.add.sprite(480, 0, 'portal').setOrigin(0.5).setScale(0.55).setDepth(0).setAngle(90).setSize(400, 500).setOffset(-100, -300);
                 shiftPortal.setVelocityY(300+(level*6));
                 shiftPortal.setImmovable();
             })
         } else if (level < 40) {
             this.time.delayedCall(Phaser.Math.Between(3000, 5000), () => {
-                shiftPortal = this.physics.add.sprite(480, 0, 'portal').setOrigin(0.5).setScale(0.55).setDepth(0).setAngle(90).setSize(400, 200);
+                shiftPortal = this.physics.add.sprite(480, 0, 'portal').setOrigin(0.5).setScale(0.55).setDepth(0).setAngle(90).setSize(400, 500).setOffset(-100, -300);
                 shiftPortal.setVelocityY(300+(level*6));
                 shiftPortal.setImmovable();
             })
         } else {
             this.time.delayedCall(Phaser.Math.Between(1000, 3000), () => {
-                shiftPortal = this.physics.add.sprite(480, 0, 'portal').setOrigin(0.5).setScale(0.55).setDepth(0).setAngle(90).setSize(400, 200);
+                shiftPortal = this.physics.add.sprite(480, 0, 'portal').setOrigin(0.5).setScale(0.55).setDepth(0).setAngle(90).setSize(400, 500).setOffset(-100, -300);
                 shiftPortal.setVelocityY(300+(level*6));
                 shiftPortal.setImmovable();
             })
@@ -131,12 +131,6 @@ class PlayUp extends Phaser.Scene{
             this.scene.start(possibleScenes[nextScene]),
             tps++;
         }, null, this);
-
-        if (shiftPortal != null){
-            this.physics.world.overlap(shiftPortal, this.barrierGroup, () => {
-                this.player.enableBody();
-            })
-        }
 
         //background movement
         this.star_sky_vertical_left.tilePositionY -= 0.4;
