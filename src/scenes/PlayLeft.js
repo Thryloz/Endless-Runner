@@ -145,6 +145,9 @@ class PlayLeft extends Phaser.Scene{
         this.playfield_background.tilePositionX -= 0.2;
 
         if (keyENTER.isDown){
+            this.sound.removeByKey('background_music'); // delete music to be recreated if replayed
+            this.sound.removeByKey('fire_sound');
+            bgm_on = false;
             this.scene.start('menuScene')
         }
     }

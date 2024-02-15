@@ -16,9 +16,12 @@ class GameOver extends Phaser.Scene{
         this.player = new Player(this, this.playerx, this.playery, 'player', 0, 'vertical').setOrigin(0.5, 0).setScale(0.35);
         this.player.play('damaged')
 
+        this.flame_going_out = this.sound.add('flame_going_out')
+        this.flame_going_out.setVolume(0.25)
+
         this.time.delayedCall(500, () => {
             this.player.play('flame_going_out')
-            this.sound.play('flame_going_out')
+            this.flame_going_out.play();
         })
         
         this.time.delayedCall(650, () => {this.player.setAlpha(0)});

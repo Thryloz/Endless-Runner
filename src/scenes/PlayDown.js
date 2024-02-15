@@ -138,6 +138,9 @@ class PlayDown extends Phaser.Scene{
         this.star_sky_vertical_right.tilePositionX += 0.1;
     
         if (keyENTER.isDown){
+            this.sound.removeByKey('background_music'); // delete music to be recreated if replayed
+            this.sound.removeByKey('fire_sound');
+            bgm_on = false;
             this.scene.start('menuScene')
         }
     }
