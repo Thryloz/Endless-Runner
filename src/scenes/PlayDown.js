@@ -119,8 +119,7 @@ class PlayDown extends Phaser.Scene{
         } 
         this.physics.world.collide(this.player, this.barrierGroup, () => {
             this.player.isDestroyed = true;
-            //this.sound.play('sfx_player_destroyed');
-            this.scene.start('gameOverScene')
+            this.scene.start('gameOverScene', [this.player.x, this.player.y])
             this.player.disableBody();
         }, () => {return this.player.isDamaged}, this);
 
